@@ -16,10 +16,18 @@ $f = flash_get();
   <title><?= e(($title ?? $appName) . " - " . $appName) ?></title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
-  <link href="<?= $BASE_URL ?>/assets/css/style.css" rel="stylesheet">
-  <link href="<?= $BASE_URL ?>/assets/css/theme.css?v=1" rel="stylesheet">
+  <link href="<?= $BASE_URL ?>/assets/css/style.css?v=2" rel="stylesheet">
+  <link href="<?= $BASE_URL ?>/assets/css/theme.css?v=2" rel="stylesheet">
+  <!-- Apply theme ASAP to prevent flash -->
+  <script>
+    (function(){
+      var t = localStorage.getItem('absen_theme') ||
+              (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+      document.documentElement.setAttribute('data-theme', t);
+    })();
+  </script>
 </head>
-<body class="bg-light">
+<body>
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary shadow-sm">
   <div class="container">
     <a class="navbar-brand fw-semibold d-flex align-items-center gap-2" href="<?= $BASE_URL ?>/index.php">
@@ -31,14 +39,20 @@ $f = flash_get();
   <span><?= e($appName) ?></span>
 </a>
     <div class="ms-auto d-flex align-items-center gap-2">
+      <span id="clockWIB" class="text-white small fw-semibold me-1 d-none d-sm-inline"></span>
+
+      <!-- Dark / Light Toggle -->
+      <button id="themeToggle" class="btn btn-sm" title="Ganti tema" aria-label="Toggle dark/light mode">
+        <i class="bi bi-sun-fill icon-sun"></i>
+        <i class="bi bi-moon-fill icon-moon"></i>
+      </button>
+
       <?php if ($u): ?>
-        <span id="clockWIB" class="text-white small fw-semibold me-2"></span>
         <span class="text-white small d-none d-md-inline">Halo, <?= e($u["full_name"]) ?> (<?= e(role_label($u["role"])) ?>)</span>
-        <a class="btn btn-sm btn-outline-light" href="<?= $BASE_URL ?>/profile.php"><i class="bi bi-person-circle me-1"></i>Profil</a>
-        <a class="btn btn-sm btn-light" href="<?= $BASE_URL ?>/logout.php"><i class="bi bi-box-arrow-right me-1"></i>Logout</a>
+        <a class="btn btn-sm btn-outline-light" href="<?= $BASE_URL ?>/profile.php"><i class="bi bi-person-circle me-1"></i><span class="d-none d-sm-inline">Profil</span></a>
+        <a class="btn btn-sm btn-light" href="<?= $BASE_URL ?>/logout.php"><i class="bi bi-box-arrow-right me-1"></i><span class="d-none d-sm-inline">Logout</span></a>
       <?php else: ?>
-        <span id="clockWIB" class="text-white small fw-semibold me-2"></span>
-        <a class="btn btn-sm btn-light" href="<?= $BASE_URL ?>/login.php">Login</a>
+        <a class="btn btn-sm btn-light" href="<?= $BASE_URL ?>/login.php"><i class="bi bi-box-arrow-in-right me-1"></i>Login</a>
       <?php endif; ?>
     </div>
   </div>
