@@ -1,58 +1,164 @@
+/* =============================================
+   THEME.CSS — Dark/Light overrides & extras
+   (semua token sudah di style.css :root)
+   ============================================= */
 
-/* Modern interactive theme (white + dark blue) */
-:root{
-  --bs-primary: #0b3a78;
-  --bs-primary-rgb: 11,58,120;
-}
-.navbar.bg-primary{ background-color: var(--bs-primary)!important; }
+/* Bootstrap primary override */
+.bg-primary { background: var(--bg-navbar) !important; }
+.btn-primary { background: linear-gradient(135deg,#0b3a78 0%,#1a56b0 100%); border-color: transparent; }
+[data-theme="dark"] .btn-primary { background: linear-gradient(135deg,#1a56b0 0%,#2979ff 100%); }
 
-.card, .card-soft{
-  border: 1px solid rgba(10,40,80,.08);
-  box-shadow: 0 10px 24px rgba(10,40,80,.08);
-  border-radius: 18px;
+/* Navbar text/icon colors */
+.navbar .text-white { color: #fff !important; }
+.navbar .btn-outline-light {
+  border-color: rgba(255,255,255,.45);
+  color: #fff;
 }
-.tile{ transition: transform .18s ease, box-shadow .18s ease; }
-.tile:hover{ transform: translateY(-2px); box-shadow: 0 14px 28px rgba(10,40,80,.12); }
-
-.btn{
-  border-radius: 14px;
-  transition: transform .12s ease, box-shadow .12s ease, opacity .12s ease;
+.navbar .btn-outline-light:hover {
+  background: rgba(255,255,255,.18);
+  border-color: rgba(255,255,255,.75);
+  color: #fff;
 }
-.btn:hover{ transform: translateY(-1px); box-shadow: 0 10px 18px rgba(10,40,80,.12); }
-.btn:active{ transform: translateY(0px) scale(.98); }
-
-.btn-press{
-  animation: btnPress .18s ease;
+.navbar .btn-light {
+  background: rgba(255,255,255,.15);
+  border-color: rgba(255,255,255,.3);
+  color: #fff;
 }
-@keyframes btnPress{
-  0%{ transform: scale(1); }
-  50%{ transform: scale(.97); }
-  100%{ transform: scale(1); }
+.navbar .btn-light:hover {
+  background: rgba(255,255,255,.28);
+  color: #fff;
 }
 
-.marquee-wrap{
-  background: #ffffff;
-  border-bottom: 1px solid rgba(10,40,80,.08);
+/* ---- Bootstrap bg-light fix (dark mode) ---- */
+[data-theme="dark"] .bg-light { background: var(--bg-card) !important; }
+[data-theme="dark"] .bg-white { background: var(--bg-card) !important; }
+
+/* ---- Alert dark mode ---- */
+[data-theme="dark"] .alert-info    { background: rgba(77,142,240,.15); color: #a8c8ff; }
+[data-theme="dark"] .alert-warning { background: rgba(255,193,7,.12);  color: #ffd966; }
+[data-theme="dark"] .alert-danger  { background: rgba(220,53,69,.12);  color: #ff8a8a; }
+[data-theme="dark"] .alert-success { background: rgba(25,135,84,.12);  color: #6ddbaa; }
+
+/* ---- Card header/body dark mode ---- */
+[data-theme="dark"] .card-header { background: rgba(255,255,255,.04); border-color: var(--border); }
+[data-theme="dark"] .card-footer { background: rgba(255,255,255,.03); border-color: var(--border); }
+
+/* ---- Input dark mode ---- */
+[data-theme="dark"] .form-control,
+[data-theme="dark"] .form-select,
+[data-theme="dark"] .input-group-text {
+  background: #1e2535;
+  border-color: rgba(100,160,255,.18);
+  color: #e2e8f8;
 }
-.marquee{
-  position: relative;
-  overflow: hidden;
-  white-space: nowrap;
+[data-theme="dark"] .form-control::placeholder { color: #5a6a8a; }
+[data-theme="dark"] .form-control:focus,
+[data-theme="dark"] .form-select:focus {
+  background: #222d42;
+  border-color: #4d8ef0;
+  box-shadow: 0 0 0 3.5px rgba(77,142,240,.25);
 }
-.marquee span{
+
+/* ---- Table dark mode ---- */
+[data-theme="dark"] .table { --bs-table-bg: transparent; color: var(--text-main); }
+[data-theme="dark"] .table td, [data-theme="dark"] .table th { border-color: var(--border); }
+[data-theme="dark"] .table-hover > tbody > tr:hover > * { background: rgba(77,142,240,.08); }
+
+/* ---- List group dark mode ---- */
+[data-theme="dark"] .list-group-item { background: var(--bg-card); border-color: var(--border); color: var(--text-main); }
+
+/* ---- Modal dark mode ---- */
+[data-theme="dark"] .modal-content { background: var(--bg-card); border-color: var(--border); color: var(--text-main); }
+[data-theme="dark"] .modal-header  { border-color: var(--border); }
+[data-theme="dark"] .modal-footer  { border-color: var(--border); }
+
+/* ---- Dropdown dark mode ---- */
+[data-theme="dark"] .dropdown-menu { background: #1e2535; border-color: var(--border); }
+[data-theme="dark"] .dropdown-item { color: var(--text-main); }
+[data-theme="dark"] .dropdown-item:hover { background: rgba(77,142,240,.12); color: #fff; }
+
+/* ---- Badge dark mode ---- */
+[data-theme="dark"] .badge.bg-secondary { background: #2d3a55 !important; }
+
+/* ---- Pagination dark mode ---- */
+[data-theme="dark"] .page-link { background: var(--bg-card); border-color: var(--border); color: var(--brand-light); }
+[data-theme="dark"] .page-link:hover { background: rgba(77,142,240,.12); }
+[data-theme="dark"] .page-item.active .page-link { background: var(--brand-light); border-color: var(--brand-light); }
+
+/* ============================================
+   THEME TRANSITION OVERLAY
+   smooth flash saat toggle
+   ============================================= */
+body.theme-transitioning * {
+  transition:
+    background-color .35s ease,
+    border-color .35s ease,
+    color .3s ease,
+    box-shadow .3s ease !important;
+}
+
+/* ============================================
+   SCROLLBAR (dark mode)
+   ============================================= */
+[data-theme="dark"] {
+  scrollbar-color: #2d3a55 #0d1117;
+  scrollbar-width: thin;
+}
+[data-theme="dark"]::-webkit-scrollbar { width: 8px; }
+[data-theme="dark"]::-webkit-scrollbar-track { background: #0d1117; }
+[data-theme="dark"]::-webkit-scrollbar-thumb { background: #2d3a55; border-radius: 4px; }
+
+/* ============================================
+   LOADING SPINNER pada btn saat submit
+   ============================================= */
+.btn-loading {
+  pointer-events: none;
+  opacity: .8;
+}
+.btn-loading::before {
+  content: '';
   display: inline-block;
-  padding-left: 100%;
-  animation: marquee 18s linear infinite;
-  color: #0b3a78;
-  font-weight: 600;
+  width: .85em;
+  height: .85em;
+  margin-right: .45em;
+  border: 2px solid rgba(255,255,255,.4);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: spin .6s linear infinite;
+  vertical-align: -.15em;
 }
-@keyframes marquee{
-  0%{ transform: translateX(0); }
-  100%{ transform: translateX(-100%); }
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* ============================================
+   SKELETON LOADER  (opsional)
+   ============================================= */
+.skeleton {
+  border-radius: 8px;
+  background: linear-gradient(90deg, var(--border) 25%, rgba(11,58,120,.06) 50%, var(--border) 75%);
+  background-size: 200% 100%;
+  animation: skeleton-wave 1.4s ease infinite;
+}
+@keyframes skeleton-wave {
+  0%   { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
 }
 
-.brand-logo{
-  width: 28px; height: 28px; object-fit: cover;
-  border-radius: 8px; background:#fff;
-  border:1px solid rgba(255,255,255,.55);
+/* ============================================
+   PULSE badge notifikasi
+   ============================================= */
+.badge-pulse {
+  position: relative;
+}
+.badge-pulse::after {
+  content: '';
+  position: absolute;
+  inset: -3px;
+  border-radius: 50%;
+  border: 2px solid currentColor;
+  animation: pulse-ring 1.4s ease-out infinite;
+  opacity: .6;
+}
+@keyframes pulse-ring {
+  0%   { transform: scale(.9); opacity: .6; }
+  100% { transform: scale(1.6); opacity: 0; }
 }
