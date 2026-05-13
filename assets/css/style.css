@@ -1,0 +1,12 @@
+:root{
+  --brand:#0b2a5b;
+}
+.bg-primary{ background-color: var(--brand) !important; }
+.btn-primary{ background-color: var(--brand); border-color: var(--brand); }
+.badge-brand{ background: var(--brand); }
+.card-soft{ border:0; border-radius: 16px; box-shadow: 0 8px 18px rgba(0,0,0,.06); }
+.tile{
+  border-radius: 16px; border: 0; box-shadow: 0 8px 18px rgba(0,0,0,.06);
+}
+.tile i{ font-size: 1.4rem; }
+.footer-note{ color:#6c757d; font-size:.875rem; }
